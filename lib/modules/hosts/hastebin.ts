@@ -1,0 +1,18 @@
+import {Host} from '../../core/host';
+
+export default new Host('hastebin', {
+	name: 'hastebin',
+	domains: ['hastebin.com'],
+	attribution: false,
+	detect: ({ pathname }) => ((/^\/(?:raw\/)?([^\/]+)/i)).exec(pathname),
+	handleLink(href: string, [, filename]: [any, any]) {
+		return {
+			type: 'IFRAME',
+			expandoClass: 'selftext',
+			muted: true,
+			embed: `https://hastebin.com/${filename}`,
+			height: '500px',
+			width: '800px',
+		};
+	},
+});

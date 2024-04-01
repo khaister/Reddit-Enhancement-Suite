@@ -1,0 +1,17 @@
+import {Host} from '../../core/host';
+
+export default new Host('vlive', {
+	name: 'VLive',
+	domains: ['vlive.tv'],
+	logo: 'https://www.vlive.tv/favicon.ico',
+	detect: ({ pathname }) => ((/^\/(?:video)\/([0-9]+)/i)).exec(pathname),
+	handleLink(href: string, [, id]: [any, any]) {
+		const embed = `https://vlive.tv/embed/${id}`;
+		return {
+			type: 'IFRAME',
+			embed,
+			embedAutoplay: `${embed}?autoPlay=true`,
+			fixedRatio: true,
+		};
+	},
+});

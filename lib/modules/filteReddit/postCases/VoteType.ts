@@ -1,0 +1,31 @@
+import {Case} from '../Case';
+
+const options = [
+	['upvoted', 'upvote'],
+	['downvoted', 'downvote'],
+	['not voted', 'unvoted'],
+];
+
+export class VoteType extends Case {
+	static text = 'Vote type';
+
+	static parseCriterion(input: any) { return { kind: input }; }
+
+	static defaultConditions = { kind: 'unvoted' };
+	static fields = ['post is ', { type: 'select', id: 'kind', options }, ' by me'];
+
+	static pattern = `(${options.map(([, cls]: [any, any]) => cls).join('|')})`;
+
+	trueText = (options.find(([, cls]: [any, any]) => cls === this.conditions.kind) || [])[0];
+
+	isValid() { return options.map(([, cls]: [any, any]) => cls).includes(this.value.kind); }
+
+	evaluate(thing: any) {
+		switch (this.value.kind) {
+			case 'upvote': return thing.isUpvoted();
+			case 'downvote': return thing.isDownvoted();
+			case 'unvoted': return thing.isUnvoted();
+			default: throw new Error('Invalid option');
+		}
+	}
+}

@@ -2,7 +2,6 @@
 	"root": true,
 	"parser": "@babel/eslint-parser",
 	"plugins": [
-		"flowtype",
 		"ava",
 		"dollar-sign",
 		"no-useless-assign",
@@ -24,23 +23,6 @@
 	"extends": ["eslint:all", "plugin:ava/recommended", "plugin:you-dont-need-lodash-underscore/all"],
 	"rules": {
 		"ava/no-ignored-test-files": 0,
-
-		"flowtype/boolean-style": 2,
-		"flowtype/define-flow-type": 2,
-		"flowtype/delimiter-dangle": [2, "always-multiline"],
-		"flowtype/generic-spacing": 2,
-		"flowtype/no-primitive-constructor-types": 2,
-		"flowtype/no-types-missing-file-annotation": 2,
-		"flowtype/no-unused-expressions": 2,
-		"flowtype/no-weak-types": [2, { "any": false }],
-		"flowtype/require-valid-file-annotation": [2, "always"],
-		"flowtype/space-after-type-colon": 2,
-		"flowtype/space-before-generic-bracket": 2,
-		"flowtype/space-before-type-colon": 2,
-		"flowtype/type-id-match": [2, "^([A-Z][a-z0-9]+)+$"],
-		"flowtype/type-import-style": [2, "declaration"],
-		"flowtype/union-intersection-spacing": 2,
-		"flowtype/valid-syntax": 2,
 
 		"you-dont-need-lodash-underscore/throttle": 0,
 
@@ -105,7 +87,7 @@
 		"no-console": 0,
 		"no-continue": 0,
 		"no-div-regex": 0,
-		"no-duplicate-imports": 0, // see import/no-duplicates (ESLint's rule doesn't handle Flow `import type`)
+		"no-duplicate-imports": 0,
 		"no-else-return": 0,
 		"no-empty-function": [2, { "allow": ["arrowFunctions", "methods"] }],
 		"no-extra-parens": [2, "functions"], // "all" conflicts with no-return-assign and some other rules, unfortunately
@@ -168,7 +150,7 @@
 		"class-methods-use-this": 0,
 		"comma-dangle": [2, "always-multiline"],
 		"complexity": [0, 11],
-		"consistent-return": 0, // Flow effectively does this, and does a better job
+		"consistent-return": 0,
 		"consistent-this": [2, "this"], // do not alias `this`, use arrow functions
 		"curly": [2, "multi-line"],
 		"default-param-last": 0,
@@ -187,7 +169,7 @@
 		"line-comment-position": 0,
 		"lines-around-comment": [0, { "allowBlockStart": true }],
 		"lines-between-class-members": [2, "always", { "exceptAfterSingleLine": true }],
-		"logical-assignment-operators": 0, // not support in used flowtype
+		"logical-assignment-operators": 0,
 		"max-classes-per-file": 0,
 		"max-depth": 0,
 		"max-len": 0,
