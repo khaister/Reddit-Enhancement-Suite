@@ -408,7 +408,7 @@ export function highlightUser(userid: string) {
 
 const css: Array<string> = [];
 const throttled = throttle(() => { addCSS(css.splice(0, css.length).join('\n')); });
-const batch = v: string => { css.push(v); throttled(); };
+const batch = (v: string) => { css.push(v); throttled(); };
 
 function highlight(selector: string, color, hoverColor, container = '') {
 	batch(`

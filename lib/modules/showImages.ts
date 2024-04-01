@@ -446,7 +446,7 @@ module.options = {
 			Object.assign(options, siteModule.options);
 			Object.values(siteModule.options).map(v => {
 				const origDependsOn = (v as any).dependsOn;
-				(v as any).dependsOn = options: any => options[key].value && (!origDependsOn || origDependsOn());
+				(v as any).dependsOn = (options: any) => options[key].value && (!origDependsOn || origDependsOn());
 			});
 		}
 
@@ -607,7 +607,7 @@ function enableConserveMemory() {
 	const rootMargin = '50% 100000%';
 
 	const boxMap = new WeakMap();
-	const ioBox = new IntersectionObserver(entries: Array<IntersectionObserverEntry> => {
+	const ioBox = new IntersectionObserver((entries: Array<IntersectionObserverEntry>) => {
 		for (const { isIntersecting, target } of entries) {
 			if (!isIntersecting && fullscreenActive()) return;
 			const { media } = downcast(boxMap.get(target), Expando);
@@ -617,7 +617,7 @@ function enableConserveMemory() {
 	}, { rootMargin });
 
 	const buttonMap = new WeakMap();
-	const ioButton = new IntersectionObserver(entries: Array<IntersectionObserverEntry> => {
+	const ioButton = new IntersectionObserver((entries: Array<IntersectionObserverEntry>) => {
 		if (fullscreenActive()) return;
 		for (const { isIntersecting, target } of entries) {
 			const expando = downcast(buttonMap.get(target), Expando);
@@ -896,7 +896,7 @@ export function getLinkExpando(link: HTMLAnchorElement): Expando | null | undefi
 	return linksMap.get(link);
 }
 
-const inText = element: HTMLElement | HTMLAnchorElement => !!element.closest('.md, .search-result-footer');
+const inText = (element: HTMLElement | HTMLAnchorElement) => !!element.closest('.md, .search-result-footer');
 
 async function checkElementForMedia(element: HTMLAnchorElement) {
 	const thing = Thing.from(element);
@@ -1150,7 +1150,7 @@ function generateMedia(
 }
 
 const observed = new WeakMap();
-const resizeObserver = new ResizeObserver(entries: Array<ResizeObserverEntry> => {
+const resizeObserver = new ResizeObserver((entries: Array<ResizeObserverEntry>) => {
 	for (const { target, contentRect } of entries) {
 		const callback = observed.get(target);
 		if (callback) callback(contentRect);
@@ -1994,7 +1994,7 @@ class Video extends Media {
 		const container = this.element.querySelector('.res-video-container');
 
 		const msgError = this.element.querySelector('.res-video-error');
-		const displayError = message: string => {
+		const displayError = (message: string) => {
 			msgError.hidden = false;
 			msgError.textContent = `Could not play video: ${message}`;
 		};
@@ -2201,7 +2201,7 @@ class Video extends Media {
 			const ctrlVolumeLevel = ctrlVolume.querySelector('.res-video-volume-level');
 			const volumePercentage = ctrlVolume.querySelector('.res-video-volume-percentage');
 
-			const updateVolume = e: unknown => {
+			const updateVolume = (e: unknown) => {
 				const base = ctrlVolumeLevel.clientHeight;
 				const click = base - e.offsetY;
 				const level = Math.min(click / base, 1);

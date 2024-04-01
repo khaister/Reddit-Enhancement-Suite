@@ -105,12 +105,12 @@ type GroupConditions = {
 };
 
 /* eslint-disable no-redeclare, no-unused-vars */
-declare function resolveGroup: (arg1: GroupConditions, arg2: boolean, arg3: true) => GroupConditions;
-declare function resolveGroup: (
-    arg1: GroupConditions,
-    arg2?: boolean | null | undefined,
-    arg3?: boolean | null | undefined,
-) => BuilderValue;
+// declare function resolveGroup: (arg1: GroupConditions, arg2: boolean, arg3: true) => GroupConditions;
+// declare function resolveGroup: (
+//     arg1: GroupConditions,
+//     arg2?: boolean | null | undefined,
+//     arg3?: boolean | null | undefined,
+// ) => BuilderValue;
 
 export function resolveGroup(initial: GroupConditions, precompute: boolean = true, keepGroup: boolean = false) {
 	let seenTrue = false;

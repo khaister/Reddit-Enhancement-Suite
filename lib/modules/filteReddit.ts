@@ -467,7 +467,7 @@ const filterlineStorage = Storage.wrap(`filterline.${pageID}`, ({} as LineState)
 const thingType = isPageType('comments', 'commentsLinklist') ? 'comment' : 'post';
 const customFilterVariant = thingType === 'post' ? 'customFiltersP' : 'customFiltersC';
 
-const createStateFromTypes = types: Array<string> => (
+const createStateFromTypes = (types: Array<string>) => (
 	(types.reduce<Record<string, any>>((acc, v, i) => {
 		if (v) acc[`!${i}`] = { type: v };
 		return acc;
@@ -518,7 +518,7 @@ let filterline: Filterline;
 let visible: boolean;
 
 let _filterlineResolve;
-export const filterlinePromise: Promise<Filterline> = new Promise(res: (result: Promise<Filterline> | Filterline) => void => { _filterlineResolve = res; });
+export const filterlinePromise: Promise<Filterline> = new Promise((res: (result: Promise<Filterline> | Filterline) => void) => { _filterlineResolve = res; });
 export let ensureFilterlineVisible;
 
 const initialState = (async () => {
@@ -584,7 +584,7 @@ module.contentStart = () => {
 	registerSubredditFilterCommand();
 };
 
-const shouldFilter = thing: Thing => (
+const shouldFilter = (thing: Thing) => (
 	!(
 		module.options.excludeOwnPosts.value && context.username &&
 		currentUserProfile() !== context.username &&
@@ -1079,7 +1079,7 @@ function updateNsfwBodyClass(filterOn) {
 }
 
 function registerSubredditFilterCommand() {
-	const getSubreddit = val: string => (
+	const getSubreddit = (val: string) => (
 		val ||
 		SelectedThing.current && SelectedThing.current.getSubreddit() ||
 		currentSubreddit() ||

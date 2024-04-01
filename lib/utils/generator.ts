@@ -5,9 +5,9 @@ export function* range(start: number, end: number): Iterable<number> {
 }
 
 /* eslint-disable no-redeclare, no-unused-vars */
-declare function zip: <A>(a: Iterable<A>) => Iterable<[A]>;
-declare function zip: <A, B>(a: Iterable<A>, b: Iterable<B>) => Iterable<[A, B]>;
-declare function zip: <A, B, C>(a: Iterable<A>, b: Iterable<B>, c: Iterable<C>) => Iterable<[A, B, C]>;
+// declare function zip: <A>(a: Iterable<A>) => Iterable<[A]>;
+// declare function zip: <A, B>(a: Iterable<A>, b: Iterable<B>) => Iterable<[A, B]>;
+// declare function zip: <A, B, C>(a: Iterable<A>, b: Iterable<B>, c: Iterable<C>) => Iterable<[A, B, C]>;
 /* eslint-enable no-unused-vars */
 
 export function* zip(...iterables) {

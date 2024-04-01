@@ -19,7 +19,7 @@ export const loggedInUser = once((): string | undefined => documentLoggedInUser(
 export const documentLoggedInUser = (document: Document | Element): string | undefined => {
 	if (isAppType('d2x')) {
 		// The first text node in the user button contains the username
-		const findFirstTextNode = e: unknown => [...e.childNodes].filter(v => v.nodeType === 3).concat(...[...e.children].map(findFirstTextNode));
+		const findFirstTextNode = (e: unknown) => [...e.childNodes].filter(v => v.nodeType === 3).concat(...[...e.children].map(findFirstTextNode));
 		const button = document.querySelector('#USER_DROPDOWN_ID > *');
 		const username = button && findFirstTextNode(button)[0];
 		return username && username.textContent;

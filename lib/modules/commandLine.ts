@@ -68,9 +68,9 @@ const commandLine = once(() => {
 	const tip = widget.querySelector('#keyCommandInputTip');
 	const error = widget.querySelector('#keyCommandInputError');
 
-	const setTip = str: string | Array<string> => { tip.innerHTML = DOMPurify.sanitize(str); };
+	const setTip = (str: string | Array<string>) => { tip.innerHTML = DOMPurify.sanitize(str); };
 	const clearTip = () => empty(tip);
-	const setError = str: string => { error.innerHTML = DOMPurify.sanitize(str); };
+	const setError = (str: string) => { error.innerHTML = DOMPurify.sanitize(str); };
 	const clearError = () => empty(error);
 
 	input.addEventListener('blur', () => {
@@ -498,9 +498,9 @@ const sortTypes = {
 	g: 'gilded',
 	p: 'ads',
 } as const;
-const sortTypeRecognizesPeriod = sortType: any => sortTypes.t === sortType || sortTypes.c === sortType;
+const sortTypeRecognizesPeriod = (sortType: any) => sortTypes.t === sortType || sortTypes.c === sortType;
 const periods = ['hour', 'day', 'week', 'month', 'year', 'all'];
-const getPeriod = val: string => val && periods.find(period => period.startsWith(val));
+const getPeriod = (val: string) => val && periods.find(period => period.startsWith(val));
 
 registerCommand(/^\/([nthrcgp])?/, '/n, /t, /h, /r, /c, /g, or /p - goes to new, top, hot, rising, controversial, gilded, or promoted sort of current subreddit, multireddit or user page',
 	(command, val, match) => {

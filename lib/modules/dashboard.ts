@@ -541,7 +541,7 @@ function WidgetObject(widgetOptions: WidgetOptions) {
 		}
 	});
 	$(this.header).append(this.stateControls);
-	this.sortChange = sortBy: any => {
+	this.sortChange = (sortBy: any) => {
 		this.sortBy = sortBy;
 		this.sortSearchBy = sortBy;
 		$(this.header).find('ul.widgetSortButtons li').removeClass('active');
@@ -594,9 +594,8 @@ function WidgetObject(widgetOptions: WidgetOptions) {
 		$(this.widgetEle).append(this.container);
 		if (this.minimized) $(this.widgetEle).addClass('minimized');
 		$dashboardUL.prepend(this.widgetEle);
-		// $(thisWidget.scrim).fadeIn();
 	};
-	this.populate = response: string => {
+	this.populate = (response: string) => {
 		let $widgetContent = $(response).find('#siteTable, .search-result-group>.contents:last');
 		const $thisWidgetContents = $(this.contents);
 
@@ -639,7 +638,7 @@ function WidgetObject(widgetOptions: WidgetOptions) {
 			registerPage($widgetContent[0]);
 		}
 	};
-	this.error = e: unknown => {
+	this.error = (e: unknown) => {
 		if (e.status === 404) {
 			$(this.contents).html('<div class="error">This widget received a 404 not found error. You may have made a typo when adding it.</div>');
 		} else {

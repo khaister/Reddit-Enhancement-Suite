@@ -33,17 +33,17 @@ class FetchError extends Error {
 }
 
 /* eslint-disable no-redeclare */
-declare function ajax: (opt: AjaxOptions<undefined>) => Promise<string>;
-declare function ajax: (opt: AjaxOptions<'text'>) => Promise<string>;
-declare function ajax: (opt: AjaxOptions<'json'>) => Promise<Partial<Record<string | number, any>>>;
-declare function ajax: (opt: AjaxOptions<'raw'>) => Promise<{
-    ok: boolean,
-    status: number,
-    headers: {
-        [key: string]: string
-    },
-    text: string
-}>;
+// declare function ajax: (opt: AjaxOptions<undefined>) => Promise<string>;
+// declare function ajax: (opt: AjaxOptions<'text'>) => Promise<string>;
+// declare function ajax: (opt: AjaxOptions<'json'>) => Promise<Partial<Record<string | number, any>>>;
+// declare function ajax: (opt: AjaxOptions<'raw'>) => Promise<{
+//     ok: boolean,
+//     status: number,
+//     headers: {
+//         [key: string]: string
+//     },
+//     text: string
+// }>;
 
 /**
  * Send a fetch request.

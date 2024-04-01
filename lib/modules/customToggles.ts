@@ -146,10 +146,10 @@ export class Toggle {
 }
 
 function registerCommandLine() {
-	const getMatchingToggles = val: string => Array.from(toggles.values())
+	const getMatchingToggles = (val: string) => Array.from(toggles.values())
 		.filter(({ text }) => text.toLowerCase().match(val.toLowerCase()))
 		.sort(({ text: a }, { text: b }) => a.localeCompare(b));
-	const bestMatch = val: string => sortBy(getMatchingToggles(val), ({ text }) => text.toLowerCase().indexOf(val.toLowerCase()))[0];
+	const bestMatch = (val: string) => sortBy(getMatchingToggles(val), ({ text }) => text.toLowerCase().indexOf(val.toLowerCase()))[0];
 
 	CommandLine.registerCommand('toggle', 'toggle - toggle any custom toggle',
 		(command, val) => getMatchingToggles(val).length ?

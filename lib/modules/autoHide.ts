@@ -56,7 +56,7 @@ module.beforeLoad = () => {
 	const mustBeVisibleDuration = parseFloat(module.options.mustBeVisibleDuration.value) || 0;
 	const pending: Map<Thing, number> = new Map();
 
-	const io = new IntersectionObserver(entries: Array<IntersectionObserverEntry> => {
+	const io = new IntersectionObserver((entries: Array<IntersectionObserverEntry>) => {
 		for (const { target, isIntersecting } of entries) {
 			const thing = Thing.checkedFrom(target);
 			const id = pending.get(thing);

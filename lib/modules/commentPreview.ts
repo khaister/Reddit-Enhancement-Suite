@@ -258,7 +258,7 @@ const addBigEditorButton = ele => {
 	bigEditorButton.addEventListener('click', showBigEditor);
 };
 
-const attachPreview = textarea: any => {
+const attachPreview = (textarea: any) => {
 	if (
 		!module.options.enableForComments.value && textarea.closest('.commentarea, .message') ||
 		!module.options.enableForPosts.value && (isPageType('submit') || textarea.closest('.link')) ||

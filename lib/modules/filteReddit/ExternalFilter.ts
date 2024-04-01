@@ -25,7 +25,7 @@ export class ExternalFilter extends Filter {
 			)}`);
 		}
 
-		const setActive = active: boolean => {
+		const setActive = (active: boolean) => {
 			const effects = this.toggleEffects
 				.reduce<Record<string, any>>((acc, val) => { acc[val] = active; return acc; }, {});
 			this.update(undefined, undefined, effects);

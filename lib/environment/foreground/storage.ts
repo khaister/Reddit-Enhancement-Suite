@@ -183,7 +183,7 @@ class PrefixWrapper<T> {
 				return keys.map(key => v[this._keyMapper(key)]);
 			}, { size: Infinity, delay: 0 });
 		} else {
-			this._get = key: (key: string) => Promise<any | null> => get(this._keyGen(key));
+			this._get = (key: (key: string) => Promise<any | null>) => get(this._keyGen(key));
 		}
 	}
 
@@ -256,7 +256,7 @@ class PrefixWrapper<T> {
 export function wrapPrefix<T>(
     prefix: string,
     defaultValue: () => T,
-    destructiveKeyMapper: (key: string) => string = x: string => x,
+    destructiveKeyMapper: (key: string) => string = (x: string) => x,
     batching: boolean = false,
 ): PrefixWrapper<T> {
 	return new PrefixWrapper(prefix, defaultValue, destructiveKeyMapper, batching);
@@ -266,7 +266,7 @@ export function wrapPrefix<T>(
 export function wrapPrefix2<T>(
     prefix: string,
     defaultValue: () => T,
-    destructiveKeyMapper: (key: string) => string = x: string => x,
+    destructiveKeyMapper: (key: string) => string = (x: string) => x,
     batching: boolean = false,
 ): PrefixWrapper<T> {
 	return new PrefixWrapper(prefix, defaultValue, destructiveKeyMapper, batching);

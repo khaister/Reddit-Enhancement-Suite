@@ -23,7 +23,7 @@ export function init() {
 	_init();
 }
 
-const start = new Promise(resolve: (result: Promise<undefined> | undefined) => void => { _init = resolve; });
+const start = new Promise((resolve: (result: Promise<undefined> | undefined) => void) => { _init = resolve; });
 
 // Module stages
 

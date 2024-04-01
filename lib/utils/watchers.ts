@@ -38,7 +38,7 @@ const thingWatchers: Partial<Record<ThingWatcherType, Array<{
 };
 
 // eslint-disable-next-line no-unused-vars
-const runCallback = fn: () => any => { try { return fn(); } catch (e: any) { console.error(e); } };
+const runCallback = (fn: () => any) => { try { return fn(); } catch (e: any) { console.error(e); } };
 
 const addCallback = (callback: () => any, actingOnElement: HTMLElement, { immediate, id } = {}) => {
 	const thing = Thing.from(actingOnElement);
@@ -145,11 +145,11 @@ export async function r2WatcherContentStart() {
 	// By running tasks on what is likely to be displayed on first paint, we avoid an extra reflow
 	watchForThings(null, (() => {
 		let max = initialProcessSize;
-		const queue: unknown = [];
+		const queue: Array<any> = [];
 		let i = 0;
 		// Reset every half minute so new things are processed fast when loading additional things via neverEndingReddit / "more comments" etc
 		contentLoaded.then(() => { setInterval(() => { queue.length = 0; i = 0; }, 0.5 * MINUTE); });
-		return thing: unknown => {
+		return (thing: Thing) => {
 			const n = i++;
 			const check = queue[n] = async () => {
 				delete queue[n];
@@ -169,7 +169,7 @@ export async function r2WatcherContentStart() {
 	})(), { immediate: true });
 
 	// Execute non-immediate callbacks on things when they become visible
-	const io = new IntersectionObserver(entries: Array<IntersectionObserverEntry> => {
+	const io = new IntersectionObserver((entries: Array<IntersectionObserverEntry>) => {
 		for (const { target, isIntersecting } of entries) {
 			if (isIntersecting) {
 				io.unobserve(target);

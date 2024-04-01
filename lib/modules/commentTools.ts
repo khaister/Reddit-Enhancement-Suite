@@ -728,7 +728,7 @@ function macroSelection(box: HTMLTextAreaElement, macroText) {
 		$('.RESMacroWrappingSpan span').removeClass('openMacro');
 	}
 	if (module.options.macroPlaceholders.value) {
-		const formatText = selectedText: string => fillPlaceholders(box, macroText, selectedText);
+		const formatText = (selectedText: string) => fillPlaceholders(box, macroText, selectedText);
 		wrapSelection(box, '', '', formatText);
 	} else {
 		wrapSelection(box, macroText, '');
@@ -1137,7 +1137,7 @@ const autoComplete = memoize(textarea => {
 	};
 
 	// Function to update the auto-complete
-	return matches: any => {
+	return (matches: any) => {
 		if (!matches.length || document.activeElement !== textarea) {
 			remove();
 			return;

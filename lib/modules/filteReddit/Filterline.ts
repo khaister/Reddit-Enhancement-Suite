@@ -357,7 +357,7 @@ export class Filterline {
 	});
 
 	getCLI(): any {
-		const deconstruct = val: unknown => {
+		const deconstruct = (val: unknown) => {
 			// Example: "!expando image" → { reverseActive: true, key: "expando", criterion: "image" }
 			const [, modifiers, key, criterion]: string[] = (val.match(/^([^\w]*)(\w*)(.*)/) as any); // guaranteed match
 			return {
@@ -370,7 +370,7 @@ export class Filterline {
 			};
 		};
 
-		const findMatchingCases = val: unknown =>
+		const findMatchingCases = (val: unknown) =>
 			this.getPickable()
 				.sort((a, b) => a.variant.localeCompare(b.variant) || a.type.localeCompare(b.type))
 				.map(CaseClass => ({

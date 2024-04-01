@@ -25,7 +25,7 @@ const searchString = (datas: BrowserData[]): string | undefined => {
 	return data ? data.identity : undefined;
 };
 
-const searchVersion = dataString: string => {
+const searchVersion = (dataString: string) => {
 	const index = dataString.indexOf(versionSearchString);
 	if (index === -1) {
 		return;

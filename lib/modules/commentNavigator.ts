@@ -76,13 +76,13 @@ module.contentStart = () => {
 	WheelBrowse.setCallback(wheelBrowseWidget => {
 		wheelBrowseWidget.addEventListener('click', () => { toggle(); });
 
-		return direction: 'down' | 'up' | string => {
+		return (direction: 'down' | 'up' | string) => {
 			if (direction === 'up') move('up');
 			else move('down');
 		};
 	});
 
-	const getMatchingCategory = async val: string => val && (await getCategories()).find(({ category }) => category.startsWith(val));
+	const getMatchingCategory = async (val: string) => val && (await getCategories()).find(({ category }) => category.startsWith(val));
 	CommandLine.registerCommand('nav', 'nav [sortType] - open the comment navigator',
 		async (command, val) => {
 			const { category: matchingCategory = '' } = (await getMatchingCategory(val)) || {};

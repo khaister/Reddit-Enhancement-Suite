@@ -5,7 +5,7 @@ import type { TableOption } from '../core/module'; // eslint-disable-line
 export function indexOptionTable<T extends ReadonlyArray<any>, Ctx>(
     option: TableOption<Ctx, T>,
     keyIndex: number,
-    keyTransformer: (arg1: string) => string = v: string => v,
+    keyTransformer: (arg1: string) => string = (v: string) => v,
 ): {
     [key: string]: T[]
 } {

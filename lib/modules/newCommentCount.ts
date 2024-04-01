@@ -140,7 +140,7 @@ module.afterLoad = () => {
 	maybePruneOldEntries('newCommentCount', entryStorage, parseInt(module.options.cleanComments.value, 10));
 };
 
-const getId = thing: Thing | null | undefined => thing.getFullname().split('_').slice(-1)[0];
+const getId = (thing: Thing | null | undefined) => thing.getFullname().split('_').slice(-1)[0];
 
 export const hasEntry = (thing: Thing) => entryStorage.has(getId(thing));
 
@@ -184,7 +184,7 @@ function updateCurrentCommentCountFromMyComment(thing: Thing) {
 	}
 }
 
-const addSubscriptionButton = id: string => {
+const addSubscriptionButton = (id: string) => {
 	const button = string.html`<span id="REScommentSubToggle" class="RESSubscriptionButton"></span>`;
 
 	const refresh = mutex(async () => {

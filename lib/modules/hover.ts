@@ -237,7 +237,7 @@ class Hover {
 		if (!callback) throw new Error();
 
 		if (this._closePromiseResolve) this._closePromiseResolve();
-		this._closePromise = new Promise(res: unknown => { this._closePromiseResolve = res; });
+		this._closePromise = new Promise((res: unknown )=> { this._closePromiseResolve = res; });
 
 		this._displayLoadIndicator();
 		(async () => {

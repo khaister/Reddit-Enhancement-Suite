@@ -477,7 +477,7 @@ const migrations = [
 	}, {
 		versionNumber: '5.5.1-maxSize-to-string',
 		async go() {
-			const toString = x: unknown => (x ? String(x) : '');
+			const toString = (x: unknown) => (x ? String(x) : '');
 			await Migrators.forceUpdateOption('showImages', 'maxWidth', toString);
 			await Migrators.forceUpdateOption('showImages', 'maxHeight', toString);
 		},

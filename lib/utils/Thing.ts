@@ -340,7 +340,7 @@ export class Thing {
 	}
 
 	getAllScoreElements(): Array<[HTMLElement, number]> {
-		const toScoreTuple = ele: unknown => [ele, Thing._parseScore(ele)];
+		const toScoreTuple = (ele: unknown) => [ele, Thing._parseScore(ele)];
 		if (this.isPost()) {
 			return Array.from(this.element.querySelectorAll('.midcol > .score, .search-score')).map(toScoreTuple);
 		} else { // if (this.isComment()) {

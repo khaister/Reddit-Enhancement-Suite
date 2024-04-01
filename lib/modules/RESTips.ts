@@ -63,7 +63,7 @@ module.contentStart = () => {
 
 let allowFeatureTips;
 const featureTips: Map<string, Tip> = new Map();
-const featureTipReadyPromise = new Promise(resolve: (result: Promise<boolean> | boolean) => void => { allowFeatureTips = () => resolve(true); });
+const featureTipReadyPromise = new Promise((resolve: (result: Promise<boolean> | boolean) => void) => { allowFeatureTips = () => resolve(true); });
 
 module.afterLoad = async () => {
 	const showsDailyTip = module.options.dailyTip.value && (await dailyTip());
@@ -377,9 +377,9 @@ function showTip(tip: Tip, guiderObj: unknown) {
 	const attachTo: HTMLElement | null | undefined = tip.attachTo && $(tip.attachTo).get(0) || null;
 
 	// Make the attachTo element navigatable even when e.g. dropdowns intersect the guider
-	const toggleIncreasedZIndex = state: boolean => { if (attachTo) attachTo.classList.toggle('restips-increased-z-index', state); };
+	const toggleIncreasedZIndex = (state: boolean) => { if (attachTo) attachTo.classList.toggle('restips-increased-z-index', state); };
 
-	return new Promise<undefined>(resolve: (result: Promise<undefined> | undefined) => void => {
+	return new Promise<undefined>((resolve: (result: Promise<undefined> | undefined) => void) => {
 		const { guiders } = require('../vendor/guiders.js');
 
 		guiders.hideAll();

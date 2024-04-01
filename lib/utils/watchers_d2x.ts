@@ -16,34 +16,34 @@ const callbacks = {
 } as const;
 
 /* eslint-disable no-redeclare, no-unused-vars */
-declare function watchForRedditEvents: (
-    type: 'comment',
-    callback: (arg1: HTMLElement, arg2: CommentEventData) => undefined | Promise<undefined>,
-) => void;
-declare function watchForRedditEvents: (
-    type: 'subreddit',
-    callback: (arg1: HTMLElement, arg2: SubredditEventData) => undefined | Promise<undefined>,
-) => void;
-declare function watchForRedditEvents: (
-    type: 'postAuthor',
-    callback: (arg1: HTMLElement, arg2: PostAuthorEventData) => undefined | Promise<undefined>,
-) => void;
-declare function watchForRedditEvents: (
-    type: 'post',
-    callback: (arg1: HTMLElement, arg2: PostEventData) => undefined | Promise<undefined>,
-) => void;
-declare function watchForRedditEvents: (
-    type: 'userHovercard',
-    callback: (arg1: HTMLElement, arg2: UserHovercardEventData) => undefined | Promise<undefined>,
-) => void;
-declare function watchForRedditEvents: (
-    type: 'commentAuthor',
-    callback: (arg1: HTMLElement, arg2: CommentAuthorEventData) => undefined | Promise<undefined>,
-) => void;
-declare function watchForRedditEvents: (
-    type: 'postModTools',
-    callback: (arg1: HTMLElement, arg2: PostModToolsEventData) => undefined | Promise<undefined>,
-) => void;
+// declare function watchForRedditEvents: (
+//     type: 'comment',
+//     callback: (arg1: HTMLElement, arg2: CommentEventData) => undefined | Promise<undefined>,
+// ) => void;
+// declare function watchForRedditEvents: (
+//     type: 'subreddit',
+//     callback: (arg1: HTMLElement, arg2: SubredditEventData) => undefined | Promise<undefined>,
+// ) => void;
+// declare function watchForRedditEvents: (
+//     type: 'postAuthor',
+//     callback: (arg1: HTMLElement, arg2: PostAuthorEventData) => undefined | Promise<undefined>,
+// ) => void;
+// declare function watchForRedditEvents: (
+//     type: 'post',
+//     callback: (arg1: HTMLElement, arg2: PostEventData) => undefined | Promise<undefined>,
+// ) => void;
+// declare function watchForRedditEvents: (
+//     type: 'userHovercard',
+//     callback: (arg1: HTMLElement, arg2: UserHovercardEventData) => undefined | Promise<undefined>,
+// ) => void;
+// declare function watchForRedditEvents: (
+//     type: 'commentAuthor',
+//     callback: (arg1: HTMLElement, arg2: CommentAuthorEventData) => undefined | Promise<undefined>,
+// ) => void;
+// declare function watchForRedditEvents: (
+//     type: 'postModTools',
+//     callback: (arg1: HTMLElement, arg2: PostModToolsEventData) => undefined | Promise<undefined>,
+// ) => void;
 
 export function watchForRedditEvents(type: keyof typeof callbacks, callback: any) {
 	if (!callbacks[type]) {

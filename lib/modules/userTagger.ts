@@ -692,7 +692,7 @@ async function addDashboardFunctionality(tabPage: HTMLElement) {
 
 	const data = await Tag.getStored();
 
-	const getRow = tag: any => {
+	const getRow = (tag: any) => {
 		const tagSpan = document.createElement('span');
 		tag.add(tagSpan, { renderTaggingIcon: true, append: true });
 

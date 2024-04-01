@@ -4,11 +4,11 @@ import type { PageType, AppType } from '../utils/location';
 import type { KeyArray } from '../utils/keycode';
 
 // separate because indexer syntax is not supported in normal (no `declare`) classes
-declare class Indexable { // eslint-disable-line no-unused-vars
-	[Symbol | $Keys<this>]: any;
-}
+// declare class Indexable { // eslint-disable-line no-unused-vars
+// 	[Symbol | $Keys<this>]: any;
+// }
 
-export class Module<RawOpt: { [string]: any }, Opt: { [string]: ModuleOption<RawOpt> } = RawOpt> /*:: extends Indexable */ {
+export class Module<RawOpt extends { [id: string | number]: any }, Opt extends { [id: string | number]: ModuleOption<RawOpt> } = RawOpt> /*:: extends Indexable */ {
 	moduleID: string;
 
 	moduleName: string;
@@ -17,12 +17,12 @@ export class Module<RawOpt: { [string]: any }, Opt: { [string]: ModuleOption<Raw
 	descriptionRaw: boolean = false; // Whether the message is HTML and should not be run through i18n / markdown
 	keywords: Array<string> = [];
 	bodyClass: boolean = false;
-	options: Opt = ({}: any);
+	options: Opt = {} as any;
 	include: Array<PageType | AppType | RegExp> = [];
 	exclude: Array<PageType | AppType | RegExp> = [];
 	shouldRun: () => boolean = () => true;
-	onToggle: (enabling: boolean) => void = () => {};
-	onSaveSettings: (changedSettings: any) => void = () => {};
+	onToggle: (enabling: boolean) => void = () => { };
+	onSaveSettings: (changedSettings: any) => void = () => { };
 
 	hidden: boolean = false;
 	disabledByDefault: boolean = false;
@@ -37,10 +37,10 @@ export class Module<RawOpt: { [string]: any }, Opt: { [string]: ModuleOption<Raw
 	afterLoad: (() => Promise<void> | void) | void = undefined;
 	always: (() => Promise<void> | void) | void = undefined;
 
-	permissions: {|
+	permissions: {
 		requiredPermissions: Array<string>,
 		message?: string,
-	|} = {
+	} = {
 			requiredPermissions: [],
 		};
 
@@ -61,13 +61,15 @@ export function getModuleId(opaqueId: OpaqueModuleId): string {
 	if (typeof opaqueId === 'string') {
 		// raw moduleID
 		return opaqueId;
-	} else if (opaqueId.module) {
+	}
+
+	if (opaqueId.module) {
 		// namespace
 		return opaqueId.module.moduleID;
-	} else {
-		// assume module-like object
-		return opaqueId.moduleID;
 	}
+
+	// assume module-like object
+	return opaqueId.moduleID;
 }
 
 export type ModuleOption<Ctx> =
@@ -82,7 +84,7 @@ export type ModuleOption<Ctx> =
 	| ColorOption<Ctx>
 	| BuilderOption<Ctx>;
 
-type CommonOptionProps<Ctx> = {|
+type CommonOptionProps<Ctx> = {
 	title: string,
 	description: string,
 	default?: any,
@@ -94,122 +96,115 @@ type CommonOptionProps<Ctx> = {|
 	// so that it must be read out of `module.options[key].value`
 	// for easier grepping (and to enforce stricter types where possible).
 	onChange?: () => void,
-|};
+};
 
-export type BooleanOption<Ctx> = {|
-	type: 'boolean',
-	value: boolean,
-	bodyClass?: boolean | string,
-	...CommonOptionProps<Ctx>,
-|};
+export interface BooleanOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'boolean';
+	value: boolean;
+	bodyClass?: boolean | string;
+};
 
-export type TextOption<Ctx> = {|
-	type: 'text',
-	value: string,
-	...CommonOptionProps<Ctx>,
-|};
+export interface TextOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'text';
+	value: string;
+};
 
-export type EnumOption<Ctx> = {|
-	type: 'enum',
-	value: string,
+export interface EnumOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'enum';
+	value: string;
 	values: Array<{
 		name: string,
 		value: string,
-	}>,
-	bodyClass?: boolean | string,
-	...CommonOptionProps<Ctx>,
-|};
+	}>;
+	bodyClass?: boolean | string;
+};
 
-export type KeycodeOption<Ctx> = {|
-	type: 'keycode',
-	value: KeyArray,
+export interface KeycodeOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'keycode';
+	value: KeyArray;
 	// special for keyboardNav
-	goMode?: boolean,
-	callback?: () => void,
-	include?: Array<PageType | AppType | RegExp>,
-	requiresModules?: Array<OpaqueModuleId>,
-	mustBeLoggedIn?: boolean,
-	...CommonOptionProps<Ctx>,
-|};
+	goMode?: boolean;
+	callback?: () => void;
+	include?: Array<PageType | AppType | RegExp>;
+	requiresModules?: Array<OpaqueModuleId>;
+	mustBeLoggedIn?: boolean;
+};
 
-export type ListOption<Ctx> = {|
-	type: 'list',
-	listType: ListType,
-	value: string,
-	...CommonOptionProps<Ctx>,
-|};
+export interface ListOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'list';
+	listType: ListType;
+	value: string;
+};
 
 type ListType = 'subreddits';
 
-export type SelectOption<Ctx> = {|
-	type: 'select',
-	value: string,
+export interface SelectOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'select';
+	value: string;
 	values: Array<{
 		name: string,
 		value: string,
 		style: string,
-	}>,
-	...CommonOptionProps<Ctx>,
-|};
+	}>;
+};
 
-export type TableOption<Ctx, V: $ReadOnlyArray<any>> = {|
-	type: 'table',
-	addRowText?: string,
-	fields: TableField[],
+export interface TableOption<Ctx, V extends ReadonlyArray<any>> extends CommonOptionProps<Ctx> {
+	type: 'table';
+	addRowText?: string;
+	fields: TableField[];
 	value: V[],
-	sort?: (a: V, b: V) => number,
-	...CommonOptionProps<Ctx>,
-|};
+	sort?: (a: V, b: V) => number;
+};
 
 type TableField = HiddenField | TextField | BooleanField | ListField | PasswordField | KeycodeField | TextareaField | EnumField | ColorField | SelectField;
 
-type HiddenField = {|
+type HiddenField = {
 	type: 'hidden',
 	key: string,
 	name: string,
 	value?: string,
-|};
+};
 
-type TextField = {|
+type TextField = {
 	type: 'text',
 	key: string,
 	name: string,
 	value?: string,
-|};
+};
 
-type BooleanField = {|
+type BooleanField = {
 	type: 'boolean',
 	key: string,
 	name: string,
 	value: boolean,
-|};
+};
 
-type ListField = {|
+type ListField = {
 	type: 'list',
 	key: string,
 	name: string,
 	listType: ListType,
-|};
+};
 
-type PasswordField = {|
+type PasswordField = {
 	type: 'password',
 	key: string,
 	name: string,
-|};
+};
 
-type KeycodeField = {|
+type KeycodeField = {
 	type: 'keycode',
 	key: string,
 	name: string,
-|};
+};
 
-type TextareaField = {|
+type TextareaField = {
 	type: 'textarea',
 	key: string,
 	name: string,
-|};
+};
 
-type EnumField = {|
+type EnumField = {
 	type: 'enum',
 	key: string,
 	name: string,
@@ -218,15 +213,15 @@ type EnumField = {|
 		name: string,
 		value: string,
 	}>,
-|};
+};
 
-type ColorField = {|
+type ColorField = {
 	type: 'color',
 	key: string,
 	name: string,
-|};
+};
 
-type SelectField = {|
+type SelectField = {
 	type: 'select',
 	key: string,
 	name: string,
@@ -236,47 +231,44 @@ type SelectField = {|
 		value: string,
 		style?: string,
 	}>,
-|};
+};
 
-export type ButtonOption<Ctx> = {|
-	type: 'button',
-	text?: string | HTMLElement,
-	callback?: (() => Promise<void> | void) | string | { moduleID: string },
-	values?: Array<{ text: $PropertyType<ButtonOption<Ctx>, 'text'>, callback: $PropertyType<ButtonOption<Ctx>, 'callback'> }>,
-	...CommonOptionProps<Ctx>,
-|};
+export interface ButtonOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'button';
+	text?: string | HTMLElement;
+	callback?: (() => Promise<void> | void) | string | { moduleID: string };
+	values?: Array<{ text: string, callback: any }>;
+};
 
-export type ColorOption<Ctx> = {|
-	type: 'color',
-	value: string,
-	...CommonOptionProps<Ctx>,
-|};
+export interface ColorOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'color';
+	value: string;
+};
 
-export type BuilderOption<Ctx> = {|
-	type: 'builder',
-	addItemText: string,
-	defaultTemplate: () => BuilderRootValue,
-	cases: { [string]: BuilderCase<*> },
-	value: BuilderRootValue[],
-	customOptionsFields: Array<Array<BuilderField | string>>,
-	...CommonOptionProps<Ctx>,
-|};
+export interface BuilderOption<Ctx> extends CommonOptionProps<Ctx> {
+	type: 'builder';
+	addItemText: string;
+	defaultTemplate: () => BuilderRootValue;
+	cases: { [id: string | number | symbol]: BuilderCase };
+	value: BuilderRootValue[];
+	customOptionsFields: Array<Array<BuilderField | string>>;
+};
 
-export type BuilderRootValue = {|
+export type BuilderRootValue = {
 	note: string,
 	ver: number,
 	id: string,
 	body: BuilderValue,
 	opts?: {
-		[string]: mixed,
+		[id: string | number | symbol]: any,
 		// Some typed (reserved) values in order to simplify type checking
 		name?: string,
 	},
-|};
+};
 
 export type BuilderValue = {
 	type: string,
-	[string]: any,
+	[id: string | number | symbol]: any,
 };
 
 type BuilderCase = {
@@ -288,41 +280,41 @@ type BuilderField = BuilderSelectField | BuilderMultiField | BuilderDurationFiel
 
 type PredefinedSelectChoice = 'COMPARISON';
 
-type BuilderSelectField = {|
+type BuilderSelectField = {
 	type: 'select',
 	options: Array<string | [string, string]> | PredefinedSelectChoice,
 	id: string,
-|};
+};
 
-type BuilderMultiField = {|
+type BuilderMultiField = {
 	type: 'multi',
 	include: 'all',
 	id: string,
-|};
+};
 
-type BuilderDurationField = {|
+type BuilderDurationField = {
 	type: 'duration',
 	id: string,
-|};
+};
 
-type BuilderChecksetField = {|
+type BuilderChecksetField = {
 	type: 'checkset',
 	items: string[],
 	id: string,
-|};
+};
 
-type BuilderNumberField = {|
+type BuilderNumberField = {
 	type: 'number',
 	id: string,
-|};
+};
 
-type BuilderCheckboxField = {|
+type BuilderCheckboxField = {
 	type: 'check',
 	id: string,
 	label: string,
-|};
+};
 
-type BuilderGenericInputField = {|
+type BuilderGenericInputField = {
 	type: string,
 	id: string,
-|};
+};

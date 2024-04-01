@@ -147,7 +147,7 @@ const showLinkTitle = once(submissionThing => {
 		baseHeight = $widget.get(0).getBoundingClientRect().height;
 		hoverHeight = $widget.get(0).scrollHeight;
 
-		new IntersectionObserver(entries: Array<IntersectionObserverEntry> => {
+		new IntersectionObserver((entries: Array<IntersectionObserverEntry>) => {
 			belowSubmission = !entries[0].isIntersecting;
 			if (!belowSubmission) hideWidget();
 		}, { rootMargin: '100px 0px 0px 0px' }).observe(submissionThing.element);

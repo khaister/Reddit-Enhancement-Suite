@@ -81,7 +81,7 @@ async function maybeHidePrevious() {
 	if (filter.state === false && filter.effects.hide) return;
 
 	// Display notification only when an already read comment is loaded
-	await new Promise(res: (result: Promise<undefined> | undefined) => void => { watchForThings(['comment'], thing => { if (isRead(thing)) res(); }); });
+	await new Promise((res: (result: Promise<undefined> | undefined) => void) => { watchForThings(['comment'], thing => { if (isRead(thing)) res(); }); });
 
 	const hideButton = document.createElement('button');
 	hideButton.textContent = 'Hide read comments';

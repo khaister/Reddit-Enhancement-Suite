@@ -191,7 +191,7 @@ const builderFields = {
 	multi: {
 		draw(data: any, field: unknown, cases = {}) {
 			const $rowWrapper = $('<ul class="builderMulti">').attr('name', field.id);
-			const addItem = itemData: unknown => drawBuilderBlock(itemData, cases).appendTo($rowWrapper).wrap('<li>');
+			const addItem = (itemData: unknown) => drawBuilderBlock(itemData, cases).appendTo($rowWrapper).wrap('<li>');
 
 			const items = data[field.id];
 			items.forEach(addItem);

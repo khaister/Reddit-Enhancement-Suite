@@ -36,7 +36,7 @@ export function getModifiedText(censorOptions: Array<string> = ['backupAndRestor
 				`    ${moduleID.padEnd(moduleMaxLength)} ${moduleStatus}`,
 				...Object.entries(modifiedOptions)
 					.map(([key, { value: _current, default: _default, type }]: [any, any]) => {
-						const asText = v: unknown =>
+						const asText = (v: unknown) =>
 							['text', 'boolean', 'enum', 'select', 'color'].includes(type) ? JSON.stringify(v) :
 							['list', 'table', 'builder'].includes(type) ? v.length :
 							['keycode'].includes(type) ? niceKeyCode(v) :

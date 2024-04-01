@@ -42,7 +42,7 @@ module.options = {
 const ignoredStorage = Storage.wrap('RESmodules.subredditStyleToggle.ignored', ([] as string[]));
 let toggle: CustomToggles.Toggle;
 let toggleIsAvailable: () => void;
-const toggleAvailablePromise = new Promise(res: (result: Promise<undefined> | undefined) => void => { toggleIsAvailable = res; });
+const toggleAvailablePromise = new Promise((res: (result: Promise<undefined> | undefined) => void) => { toggleIsAvailable = res; });
 let allowRefresh: Promise<undefined>;
 
 module.onInit = () => {
@@ -220,7 +220,7 @@ const toggleElements = (() => {
 		}
 	});
 
-	return shouldRestore: boolean => Promise.all([
+	return (shouldRestore: boolean) => Promise.all([
 		toggleStylesheet(shouldRestore),
 		toggleHeaderImg(shouldRestore),
 	]);

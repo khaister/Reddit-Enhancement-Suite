@@ -3,7 +3,7 @@ import { Host } from '../../core/host';
 import * as Metadata from '../../core/metadata';
 import { ajax } from '../../environment';
 
-const req = url: string => ajax({
+const req = (url: string) => ajax({
 	url,
 	type: 'json',
 	headers: {

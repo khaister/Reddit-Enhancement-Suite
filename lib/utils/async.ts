@@ -2,7 +2,7 @@ import {pull, debounce, once, curryRight, remove} from 'lodash-es';
 import { zip } from './generator.js';
 
 export function waitFor<T>(callback: () => T | null | undefined, interval: number = 1): Promise<T> {
-	return new Promise(resolve: (result: Promise<T> | T) => void => {
+	return new Promise((resolve: (result: Promise<T> | T) => void) => {
 		(function repeat() {
 			let val;
 			// The callback might throw an error
@@ -145,7 +145,7 @@ export function batch<T, V>(
 
 	if (flushBeforeUnload) window.addEventListener('beforeunload', () => { invoke(); }, true);
 
-	return entry: T => {
+	return (entry: T) => {
 		const { value } = currentBatch.next(entry);
 		if (value === undefined) throw new Error('Batch generator was not replaced after completion');
 		return value;
@@ -180,12 +180,12 @@ export function fastAsync<A, B, C, D, E, F, G, R>(
 }
 
 /* eslint-disable no-redeclare, no-unused-vars */
-declare function asyncFlow: <A1, A2, A3, A4, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | RB>(f1: F1) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
-declare function asyncFlow: <A1, A2, A3, A4, B, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<RA> | RB>(f1: F1, f2: F2) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
-declare function asyncFlow: <A1, A2, A3, A4, B, C, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<C> | C, F3 extends (c: C) => Promise<RA> | RB>(f1: F1, f2: F2, f3: F3) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
-declare function asyncFlow: <A1, A2, A3, A4, B, C, D, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<C> | C, F3 extends (c: C) => Promise<D> | D, F4 extends (d: D) => Promise<RA> | RB>(f1: F1, f2: F2, f3: F3, f4: F4) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
-declare function asyncFlow: <A1, A2, A3, A4, B, C, D, E, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<C> | C, F3 extends (c: C) => Promise<D> | D, F4 extends (d: D) => Promise<E> | E, F5 extends (e: E) => Promise<RA> | RB>(f1: F1, f2: F2, f3: F3, f4: F4, f5: F5) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
-declare function asyncFlow: <A1, A2, A3, A4, B, C, D, E, F, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<C> | C, F3 extends (c: C) => Promise<D> | D, F4 extends (d: D) => Promise<E> | E, F5 extends (e: E) => Promise<F> | F, F6 extends (f: F) => Promise<RA> | RB>(f1: F1, f2: F2, f3: F3, f4: F4, f5: F5, f6: F6) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
+// declare function asyncFlow: <A1, A2, A3, A4, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | RB>(f1: F1) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
+// declare function asyncFlow: <A1, A2, A3, A4, B, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<RA> | RB>(f1: F1, f2: F2) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
+// declare function asyncFlow: <A1, A2, A3, A4, B, C, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<C> | C, F3 extends (c: C) => Promise<RA> | RB>(f1: F1, f2: F2, f3: F3) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
+// declare function asyncFlow: <A1, A2, A3, A4, B, C, D, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<C> | C, F3 extends (c: C) => Promise<D> | D, F4 extends (d: D) => Promise<RA> | RB>(f1: F1, f2: F2, f3: F3, f4: F4) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
+// declare function asyncFlow: <A1, A2, A3, A4, B, C, D, E, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<C> | C, F3 extends (c: C) => Promise<D> | D, F4 extends (d: D) => Promise<E> | E, F5 extends (e: E) => Promise<RA> | RB>(f1: F1, f2: F2, f3: F3, f4: F4, f5: F5) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
+// declare function asyncFlow: <A1, A2, A3, A4, B, C, D, E, F, RA, RB, F1 extends (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<B> | B, F2 extends (b: B) => Promise<C> | C, F3 extends (c: C) => Promise<D> | D, F4 extends (d: D) => Promise<E> | E, F5 extends (e: E) => Promise<F> | F, F6 extends (f: F) => Promise<RA> | RB>(f1: F1, f2: F2, f3: F3, f4: F4, f5: F5, f6: F6) => (a1: A1, a2: A2, a3: A3, a4: A4) => Promise<RA> | Promise<RB> | RB;
 
 export function asyncFlow(firstFn: any, ...fns) {
 	return fastAsync(function*(...args) {
@@ -207,7 +207,7 @@ export function reifyPromise<T>(promise: Promise<T>): {
 	return { get: () => val };
 }
 
-export function keyedMutex<V, T extends (...args: any) => Promise<V> | V>(callback: T, keyResolver: (...args: any) => unknown = x: unknown => x): T {
+export function keyedMutex<V, T extends (...args: any) => Promise<V> | V>(callback: T, keyResolver: (...args: any) => unknown = (x: unknown) => x): T {
 	const queues = new Map();
 
 	return function(...args) {

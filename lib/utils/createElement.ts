@@ -137,7 +137,7 @@ export function fancyToggleButton(text: string, title: string, getState: () => b
 
 	let state;
 
-	const refresh = _state: boolean => {
+	const refresh = (_state: boolean) => {
 		if (state === _state) return;
 		state = _state;
 		if (state) {

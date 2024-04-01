@@ -4,7 +4,7 @@ import { watchForThings } from './watchers';
 
 export function waitForEvent(ele: EventTarget, ...events: string[]): Promise<Event> {
 	return Promise.race(events.map(event =>
-		new Promise(resolve: (result: Promise<never>) => void => {
+		new Promise((resolve: (result: Promise<never>) => void) => {
 			ele.addEventListener(event, function fire(e) {
 				ele.removeEventListener(event, fire);
 				resolve(e);
@@ -14,14 +14,14 @@ export function waitForEvent(ele: EventTarget, ...events: string[]): Promise<Eve
 }
 
 export function waitForChild(ele: Element, selector: string): Promise<HTMLElement> {
-	return new Promise(resolve: (result: Promise<HTMLElement> | HTMLElement) => void => {
+	return new Promise((resolve: (result: Promise<HTMLElement> | HTMLElement) => void) => {
 		const child = Array.from(ele.children).find(child => child.matches(selector));
 		if (child) {
 			resolve(child);
 			return;
 		}
 
-		const observer = new MutationObserver(mutations: Array<MutationRecord> => {
+		const observer = new MutationObserver((mutations: Array<MutationRecord>) => {
 			for (const mutation of mutations) {
 				for (const node of mutation.addedNodes) {
 					if (node.nodeType === Node.ELEMENT_NODE && (node as any).matches(selector)) {
@@ -45,7 +45,7 @@ export function watchForChildren(ele: Element, selector: string, callback: (ele:
 }
 
 export function watchForFutureChildren(ele: Element, selector: string, callback: (ele: HTMLElement) => any): void {
-	new MutationObserver(mutations: Array<MutationRecord> => {
+	new MutationObserver((mutations: Array<MutationRecord>) => {
 		for (const mutation of mutations) {
 			for (const node of mutation.addedNodes) {
 				if (node.nodeType === Node.ELEMENT_NODE && (node as any).matches(selector)) {
@@ -57,14 +57,14 @@ export function watchForFutureChildren(ele: Element, selector: string, callback:
 }
 
 export function waitForDescendant(ele: Element, selector: string): Promise<HTMLElement> {
-	return new Promise(resolve: (result: Promise<HTMLElement> | HTMLElement) => void => {
+	return new Promise((resolve: (result: Promise<HTMLElement> | HTMLElement) => void) => {
 		const child = ele.querySelector(selector);
 		if (child) {
 			resolve(child);
 			return;
 		}
 
-		const observer = new MutationObserver(mutations: Array<MutationRecord> => {
+		const observer = new MutationObserver((mutations: Array<MutationRecord>) => {
 			for (const mutation of mutations) {
 				for (const node of mutation.addedNodes) {
 					if (node.nodeType === Node.ELEMENT_NODE) {
@@ -86,13 +86,13 @@ export function waitForDescendant(ele: Element, selector: string): Promise<HTMLE
 }
 
 export function waitForDescendantChange(ele: Element, selector: string): Promise<void> {
-	return new Promise(resolve: (result: Promise<undefined> | undefined) => void => {
+	return new Promise((resolve: (result: Promise<undefined> | undefined) => void )=> {
 		const found = () => {
 			observer.disconnect();
 			resolve();
 		};
 
-		const observer = new MutationObserver(mutations: Array<MutationRecord> => {
+		const observer = new MutationObserver((mutations: Array<MutationRecord>) => {
 			for (const mutation of mutations) {
 				if ((mutation.target as any).matches(selector)) return found();
 				for (const node of mutation.addedNodes) {
@@ -162,7 +162,7 @@ export function watchForFutureDescendants(
     callback: (ele: HTMLElement) => any,
     ignoreChildrenIfAddedNodeMatches: boolean = false,
 ): void {
-	new MutationObserver(mutations: Array<MutationRecord> => {
+	new MutationObserver((mutations: Array<MutationRecord>) => {
 		// avoid calling the callback twice if streamed-in children match the same selectors as their parents
 		// i.e. nested comments that are rendered at pageload
 		const children = new Set();
@@ -191,7 +191,7 @@ export function watchForFutureDescendants(
 export function waitForSelectorMatch(ele: HTMLElement, selector: string): Promise<void> {
 	if (ele.matches(selector)) return Promise.resolve();
 
-	return new Promise(resolve: (result: Promise<undefined> | undefined) => void => {
+	return new Promise((resolve: (result: Promise<undefined> | undefined) => void) => {
 		const observer = new MutationObserver(() => {
 			if (ele.matches(selector)) {
 				resolve();

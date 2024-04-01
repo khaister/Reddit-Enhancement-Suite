@@ -25,7 +25,7 @@ module.afterLoad = () => {
 
 	const visibleLoaders = new Set();
 
-	const io = new IntersectionObserver(entries: Array<IntersectionObserverEntry> => {
+	const io = new IntersectionObserver((entries: Array<IntersectionObserverEntry>) => {
 		for (const { isIntersecting, target } of entries) {
 			if (!context.contains(target)) io.unobserve(target);
 			if (isIntersecting) visibleLoaders.add(target);

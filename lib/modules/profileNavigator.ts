@@ -83,7 +83,7 @@ module.contentStart = () => {
 	}
 };
 
-const getListFragment = username: any => {
+const getListFragment = (username: any) => {
 	PenaltyBox.alterFeaturePenalty(module.moduleID, 'sectionMenu', 5);
 
 	const fragment = document.createDocumentFragment();

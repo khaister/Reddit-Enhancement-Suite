@@ -105,7 +105,7 @@ const containers = {
 
 			if (!document.querySelector('#RESPinnedHeaderSpacer')) { // No need to hide the floater if whole header is pinned
 				this.element.hidden = true;
-				new IntersectionObserver(entries: unknown => {
+				new IntersectionObserver((entries: unknown) => {
 					this.element.hidden = entries[0].isIntersecting;
 				}).observe(document.querySelector('#header'));
 			}

@@ -32,7 +32,7 @@ async function makePromptWindow({ permissions, origins }) {
 
 	const { tabs: [{ id }] } = await apiToPromise(chrome.windows.create)({ url: url.href, type: 'popup', width, height, left, top });
 
-	return new Promise(resolve: (result: Promise<boolean> | boolean) => void => {
+	return new Promise((resolve: (result: Promise<boolean> | boolean) => void) => {
 		function updateListener(tabId: unknown, updates: any) {
 			if (tabId !== id) return;
 
