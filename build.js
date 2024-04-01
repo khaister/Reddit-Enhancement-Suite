@@ -1,4 +1,3 @@
-/* @noflow */
 /* eslint import/no-nodejs-modules: 0, import/extensions: 0 */
 
 import fs from 'node:fs';
@@ -7,7 +6,6 @@ import * as commander from 'commander';
 import * as esbuild from 'esbuild';
 import * as semver from 'semver';
 import JSZip from 'jszip';
-import flowRemoveTypes from 'flow-remove-types';
 import { copy } from 'esbuild-plugin-copy';
 import { sassPlugin } from 'esbuild-sass-plugin';
 import isBetaVersion from './build/isBetaVersion.js';
@@ -115,19 +113,6 @@ async function buildForBrowser(targetName, { manifest, noSourceMap, browserName,
 			'process.env.homepageURL': `"${homepageURL}"`,
 		},
 		plugins: [
-			{
-				name: 'remove-flow-types',
-				setup(build) {
-					build.onLoad({ filter: /\.m?js$/ }, async args => {
-						const text = await fs.promises.readFile(args.path, 'utf8')
-						const contents = flowRemoveTypes(text, { pretty: true }).toString();
-						return {
-							contents,
-							loader: 'js',
-						}
-					})
-				},
-			},
 			sassPlugin(),
 			copy({
 				assets: [

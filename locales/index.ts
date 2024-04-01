@@ -1,5 +1,3 @@
-/* @flow */
-
 import { mapValues } from 'lodash-es';
 import locales from './locales';
 
@@ -30,7 +28,7 @@ function redditLocaleToTransifexLocale(redditLocale) {
 	}
 }
 
-export function getLocaleDictionary(localeName: string): { [string]: string } {
+export function getLocaleDictionary(localeName: string): { [id: string | number | symbol]: string } {
 	const transifexLocale = redditLocaleToTransifexLocale(localeName);
 
 	const mergedLocales = {

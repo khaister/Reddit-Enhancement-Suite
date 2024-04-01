@@ -1,5 +1,3 @@
-/* @flow */
-
 export default {
 	files: [
 		// `lib` must be transpiled before tests are executed

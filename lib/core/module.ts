@@ -1,5 +1,3 @@
-/* @flow */
-
 import type { PageType, AppType } from '../utils/location';
 import type { KeyArray } from '../utils/keycode';
 

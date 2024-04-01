@@ -44,8 +44,6 @@ To load the extension into your browser, see [Loading RES into your browser](#lo
 
 **`yarn lint-fix`** will autofix any [fixable](http://eslint.org/docs/user-guide/command-line-interface#fix) lint issues.
 
-**`yarn flow`** will run [Flow](https://flowtype.org/) type checking, and start the Flow server so future runs will complete faster. Use `yarn flow -- stop` to stop the server, or `yarn flow check` to run Flow once without starting the server.
-
 **`yarn test`** will run unit tests (in `__tests__` directories) using [Ava](https://github.com/avajs/ava).
 
 **`yarn integration <browsers> [-f <testFileGlob>]`** will run integration tests (in `tests/`) using [Nightwatch.js](http://nightwatchjs.org/).
@@ -105,7 +103,7 @@ First, check to see if there is an existing module with the same focus.
 
 See [`examples/module.js`](https://github.com/honestbleeps/Reddit-Enhancement-Suite/blob/master/examples/module.js) for an example.
 
-Create a new `.js` file in `lib/modules`. Export it in `lib/modules/index.js` 
+Create a new `.js` file in `lib/modules`. Export it in `lib/modules/index.js`
 It will automatically be loaded when the build script is restarted.
 
 All user-visible text must be translated. See the [locales README](/locales/locales/README.md) for details.
@@ -114,7 +112,7 @@ All user-visible text must be translated. See the [locales README](/locales/loca
 
 See [`examples/host.js`](https://github.com/honestbleeps/Reddit-Enhancement-Suite/blob/master/examples/host.js) for an example.
 
-Create a new `.js` file in `lib/modules/hosts`. Export it in `lib/modules/hosts/index.js` 
+Create a new `.js` file in `lib/modules/hosts`. Export it in `lib/modules/hosts/index.js`
 It will automatically be loaded when the build script is restarted.
 
 If the host uses an API that does not support [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), you must add it to the browsers' manifests and the host's `permissions` property. For example, search for usages of `api.twitter.com`.
