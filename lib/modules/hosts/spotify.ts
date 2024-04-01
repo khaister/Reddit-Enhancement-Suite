@@ -1,4 +1,4 @@
-import {Host} from '../../core/host';
+import { Host } from '../../core/host';
 
 export default new Host('spotify', {
 	name: 'spotify',
@@ -12,7 +12,7 @@ export default new Host('spotify', {
 	* https://open.spotify.com/user/someUser/playlist/id
 	* TODO: Check username restrictions, match with something better than \w+
 	*/
-	detect: ({ href }) => ((/^https:\/\/(?:open|play)\.spotify\.com\/((?:track|artist|album|user\/\w+\/playlist)\/[a-zA-z0-9]+)$/i)).exec(href),
+	detect: ({ href }) => ((/^https:\/\/(?:open|play)\.spotify\.com\/((?:track|artist|album|user\/\w+\/playlist)\/[a-zA-Z0-9]+)$/i)).exec(href),
 	handleLink(href: string, [, uri]: [any, any]) {
 		return {
 			type: 'IFRAME',
