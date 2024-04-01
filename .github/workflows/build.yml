@@ -1,4 +1,4 @@
-name: RES Pipeline
+name: Build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
   pull_request:
 
 jobs:
-  lint_flow:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
     - run: yarn stylelint
     - run: yarn i18n-lint
 
-  build_deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
