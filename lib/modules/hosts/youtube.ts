@@ -1,4 +1,4 @@
-import {Host} from '../../core/host';
+import { Host } from '../../core/host';
 import { ajax } from '../../environment';
 import { DAY, batch } from '../../utils';
 
@@ -82,7 +82,7 @@ export default new Host('youtube', {
 			},
 			type: 'json',
 			cacheFor: DAY,
-		});
+		}).catch(() => ({ items: [] }));
 
 		return ids
 			.map(id => {
