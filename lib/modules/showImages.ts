@@ -15,14 +15,12 @@ import type {
 	GenericMedia,
 } from '../core/host';
 import { Host } from '../core/host';
-import { loadOptions } from '../core/init';
 import { Module } from '../core/module';
 import {
 	positiveModulo,
 	downcast,
 	filterMap,
 	Thing,
-	PagePhases,
 	SelectedThing,
 	addCSS,
 	batch,
@@ -35,7 +33,6 @@ import {
 	frameThrottle,
 	isPageType,
 	isAppType,
-	stopPageContextScript,
 	string,
 	waitForEvent,
 	watchForElements,
@@ -54,7 +51,6 @@ import {
 	Permissions,
 	Storage,
 } from '../environment';
-import * as Modules from '../core/modules';
 import * as Options from '../core/options';
 import * as __hosts from './hosts';
 import * as Notifications from './notifications';
@@ -75,7 +71,6 @@ import {
 	expandos,
 	activeExpandos,
 } from './showImages/expando';
-import vreddit from './hosts/vreddit';
 
 const siteModules: Map<string, Host<any, any>> = new Map(
 	Object.values(__hosts).map(host => [host.moduleID, downcast(host, Host)]), // ensure that all hosts are instances of `Host`
@@ -452,24 +447,6 @@ module.options = {
 
 		return options;
 	}, {}),
-};
-
-module.onInit = () => {
-	if (isAppType('r2')) {
-		// We'll probably replace Reddit's video player, so disable the script containing it for now
-		// This happens on `onInit` since RES' options load slower than the script's
-		const preventVideoPlayerScriptTasks = [
-			stopPageContextScript(script => ((/^\/?videoplayer\./)).test(new URL(script.src, location.origin).pathname), 'head', true),
-			// Reddit loads scripts which initializes the video player, which will cause a slowdown if not blocked
-			stopPageContextScript(script => !!script.innerHTML.match('RedditVideoPlayer'), PagePhases.contentStart.then(() => document.querySelector('#siteTable')), false),
-		];
-
-		loadOptions.then(() => {
-			// We might need to restore the native player
-			const removeNativePlayer = Modules.isRunning(module) && isSiteModuleEnabled(vreddit) && vreddit.options && vreddit.options.forceReplaceNativeExpando.value;
-			if (!removeNativePlayer) forEachSeq(preventVideoPlayerScriptTasks, ({ undo }) => undo());
-		});
-	}
 };
 
 module.exclude = [
